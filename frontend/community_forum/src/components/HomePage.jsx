@@ -8,7 +8,7 @@ const HomePage = () => {
 
   return (
     <div className="page-container">
-      <h2 className="page-title">Discussions</h2>
+      <h2 className="page-title">Community Forum</h2>
 
       {/* Search */}
       <input
@@ -16,6 +16,20 @@ const HomePage = () => {
         placeholder="Search"
         className="search-input"
       />
+
+      <div className="hero-section">
+      <div className="hero-content">
+        <h1 className="hero-title">Discussions</h1>
+        <p className="hero-subtitle">Join the community</p>
+
+          <input
+          type="text"
+          placeholder="🔍 Search"
+          className="hero-search"
+        />
+        </div>
+      </div>
+
 
       {/* Section Cards */}
       <div className="section-row">

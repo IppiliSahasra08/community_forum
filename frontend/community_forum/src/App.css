@@ -1,142 +1,223 @@
+/* ---------- GLOBAL ---------- */
+body {
+  margin: 0;
+  font-family: 'Ikaros', Arial, sans-serif;
+  background: #f6f7fb;
+  color: #1a1a1a;
+}
+
 .page-container {
-  padding: 20px;
+  max-width: 1250px;
+  margin: 30px auto;
+  padding: 0 25px;
 }
 
+/* ---------- PAGE TITLE ---------- */
 .page-title {
+  font-size: 32px;
+  font-weight: 700;
   margin-bottom: 20px;
+  color: #2d3a55;
 }
 
+/* ---------- SEARCH BAR ---------- */
 .search-input {
   width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 2px solid #d1d5db;
+  font-size: 16px;
   margin-bottom: 25px;
+  transition: 0.2s;
 }
 
+.search-input:focus {
+  border-color: #4B6FFF;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(75,111,255,0.15);
+}
+
+/* ---------- SECTION CARDS (Announcements / Ask Community) ---------- */
 .section-row {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
   margin-bottom: 30px;
 }
 
 .section-card {
+  background: white;
   flex: 1;
   padding: 20px;
   border-radius: 12px;
-  border: 1px solid #e5e5e5;
-  background: #fafafa;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  transition: 0.25s;
+  min-width: 260px;
+}
+
+.section-card h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #2d3a55;
 }
 
 .section-card:hover {
-  background: #f0f0f0;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.10);
 }
 
+/* ---------- MAIN AREA (Left + Sidebar Right) ---------- */
 .main-row {
   display: flex;
-  gap: 25px;
+  gap: 30px;
+  margin-top: 20px;
 }
 
 .topics-left {
   flex: 3;
 }
 
-.topic-card {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  padding: 15px;
-  border-radius: 10px;
+.sidebar {
+  flex: 1.2;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  height: fit-content;
+}
+
+/* ---------- SECTION LABELS ---------- */
+.section-label {
+  font-size: 20px;
+  font-weight: 600;
   margin-bottom: 15px;
+  color: #2d3a55;
+}
+
+/* ---------- TOPIC CARDS (individual posts) ---------- */
+.topic-card {
+  background: white;
+  padding: 18px 22px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: 0.2s;
+}
+
+.topic-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+.topic-card h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.topic-card p {
+  margin: 0 0 10px 0;
+  color: #555;
 }
 
 .meta {
-  font-size: 14px;
+  font-size: 13px;
   color: #777;
 }
 
-.sidebar {
-  flex: 1;
-  border-left: 1px solid #ddd;
-  padding-left: 20px;
-}
-
-.tags .tag {
-  padding: 6px 12px;
-  background: #f1f1f1;
-  border-radius: 8px;
-  margin-right: 10px;
-  margin-top: 10px;
-  display: inline-block;
-}
-.page-container {
-  padding: 20px;
-}
-
-.page-title {
-  margin-bottom: 20px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-bottom: 25px;
-}
-
-.section-row {
+/* ---------- TAGS ---------- */
+.tags {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background: #eef2ff;
+  color: #4753ff;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tag:hover {
+  background: #4B6FFF;
+  color: white;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .main-row {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}
+
+/* ---------------- HERO SECTION ---------------- */
+.hero-section {
+  background: #18222d;
+  padding: 60px 40px;
+  border-radius: 0;
+  position: relative;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+/* Blue circular graphics */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -80px;
+  width: 350px;
+  height: 350px;
+  border: 3px solid #2d6bff;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.hero-section::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  right: -40px;
+  width: 400px;
+  height: 400px;
+  border: 3px solid #2d6bff;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+
+.hero-content {
+  position: relative;  
+  z-index: 2;          /* ensures your text stays above the circles */
+}
+
+.hero-title {
+  color: white;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.hero-subtitle {
+  color: #c5d3df;
+  font-size: 16px;
   margin-bottom: 30px;
 }
 
-.section-card {
-  flex: 1;
-  padding: 20px;
+.hero-search {
+  width: 450px;
+  max-width: 100%;
+  padding: 14px 18px;
   border-radius: 12px;
-  border: 1px solid #e5e5e5;
-  background: #fafafa;
-  cursor: pointer;
-}
-
-.section-card:hover {
-  background: #f0f0f0;
-}
-
-.main-row {
-  display: flex;
-  gap: 25px;
-}
-
-.topics-left {
-  flex: 3;
-}
-
-.topic-card {
-  background: #fff;
-  border: 1px solid #e5e5e5;
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.meta {
-  font-size: 14px;
-  color: #777;
-}
-
-.sidebar {
-  flex: 1;
-  border-left: 1px solid #ddd;
-  padding-left: 20px;
-}
-
-.tags .tag {
-  padding: 6px 12px;
-  background: #f1f1f1;
-  border-radius: 8px;
-  margin-right: 10px;
-  margin-top: 10px;
-  display: inline-block;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: white;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
 }
