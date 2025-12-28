@@ -1,14 +1,47 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { db } from "../firebase";
+import PostList from "./postlist";
+
 
 // import "./App.css"; // optional if you want a separate css
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [recentPosts, setRecentPosts] = useState([]);
+  useEffect(() => {
+  const fetchPosts = async () => {
+    const q = query(
+      collection(db, "posts"),
+      orderBy("createdAt", "desc")
+    );
+
+    const snapshot = await getDocs(q);
+    setRecentPosts(
+      snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+    );
+  };
+
+  fetchPosts();
+}, []);
+
 
   return (
     <div className="page-container">
       <h2 className="page-title">Community Forum</h2>
+
+      <button
+  className="create-post-btn"
+  onClick={() => navigate("/create-post")}
+>
+  + Create Post
+</button>
+
 
       {/* Search */}
       <input
@@ -51,25 +84,7 @@ const HomePage = () => {
       {/* Main Layout */}
       <div className="main-row">
         {/* LEFT — TOPIC LIST */}
-        <div className="topics-left">
-          <h4 className="section-label">Recently Active</h4>
-
-          <div className="topic-card">
-            <h4>How do I ensure the supplier can only edit their data?</h4>
-            <p>
-              Governance: Ensuring restricted access to the supplier portal.
-            </p>
-            <span className="meta">3 replies · 4 hours ago</span>
-          </div>
-
-          <div className="topic-card">
-            <h4>Introducing Improved Portal Editing Features</h4>
-            <p>
-              New editing update that enhances admin capabilities.
-            </p>
-            <span className="meta">20 hours ago · Announcements</span>
-          </div>
-        </div>
+        <PostList />
 
         {/* RIGHT — SIDEBAR */}
         <div className="sidebar">
