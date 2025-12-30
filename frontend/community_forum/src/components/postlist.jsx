@@ -1,19 +1,12 @@
 import { useEffect, useState } from "react";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
-import { useNavigate } from "react-router-dom";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const q = query(
-      collection(db, "posts"),
-      orderBy("createdAt", "desc")
-    );
-
-    const unsub = onSnapshot(q, (snapshot) => {
+    const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
       setPosts(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -26,24 +19,17 @@ const PostList = () => {
   }, []);
 
   return (
-    <div className="topics-left">
-      <h4 className="section-label">Recently Active</h4>
-
+    <>
+      {posts.length === 0 && <p>No posts yet</p>}
       {posts.map((post) => (
-        <div
-          key={post.id}
-          className="topic-card"
-          onClick={() => navigate(`/post/${post.id}`)}
-        >
+        <div className="topic-card" key={post.id}>
           <h4>{post.title}</h4>
-          <p>{post.content?.slice(0, 80)}...</p>
-          <span className="meta">
-            {post.replies || 0} replies
-          </span>
+          <p>{post.content}</p>
         </div>
       ))}
-    </div>
+    </>
   );
 };
 
 export default PostList;
+

@@ -1,21 +1,16 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './components/homepage';
-import AnnouncementsPage from "./components/AnnouncementsPage";
-import AskCommunityPage from "./components/AskCommunityPage";
-import PostList from "./postlist";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./components/homepage";
+import AddPost from "./components/AddPost";
 import "./App.css";
-
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/announcements" element={<AnnouncementsPage />} />
-        <Route path="/ask-community" element={<AskCommunityPage />} />
+        <Route path="/create-post" element={<AddPost />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

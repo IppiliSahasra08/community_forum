@@ -1,61 +1,54 @@
 import { useState } from "react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const AddPost = () => {
-  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title.trim() || !content.trim()) {
-      alert("All fields required");
-      return;
-    }
-
     try {
-      setLoading(true);
       await addDoc(collection(db, "posts"), {
-        title: title.trim(),
-        content: content.trim(),
-        replies: 0,
-        createdAt: serverTimestamp(),
+        title,
+        content,
+        createdAt: new Date(),
       });
+
+      alert("Post added successfully");
       navigate("/");
-    } catch (err) {
-      alert("Error creating post");
-      console.error(err);
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      console.error("Error adding post:", error);
+      alert("Error adding post");
     }
   };
 
   return (
-    <div className="page-container">
+    <div style={{ padding: "40px" }}>
       <h2>Create Post</h2>
 
-      <form onSubmit={handleSubmit} className="post-form">
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Post title"
+          placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
+        <br /><br />
+
         <textarea
-          placeholder="Post content"
-          rows="6"
+          placeholder="Content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Posting..." : "Create Post"}
-        </button>
+        <br /><br />
+
+        <button type="submit">Publish</button>
       </form>
     </div>
   );
